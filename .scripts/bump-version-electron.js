@@ -38,6 +38,7 @@ module.exports.desktoptimer = () => {
         }
     
         let newVersion = stdout.trim();
+        console.log('last tag', newVersion);
         if (newVersion) {
             newVersion = newVersion.split('v')[1];
         }
