@@ -31,23 +31,22 @@ module.exports.desktoptimer = () => {
         let package = require('../apps/desktop-timer/src/package.json');
         let currentVersion = package.version;
     
-        exec('git fetch --tags && git tag', (error, stdout) => {
+        exec('git fetch --tags && git describe --tags `git rev-list --tags --max-count=1`', (error, stdout) => {
         if (error) {
             console.error(`exec error: ${error}`);
             return;
         }
-        console.log('tags ->', stdout)
     
-        // let newVersion = stdout.trim();
-        // console.log('last tag', newVersion);
-        // if (newVersion) {
-        //     newVersion = newVersion.split('v')[1];
-        // }
-        // package.version = newVersion;
-        // fs.writeFileSync('./apps/desktop-timer/src/package.json', JSON.stringify(package, null, 2));
+        let newVersion = stdout.trim();
+        console.log('latest tag', newVersion);
+        if (newVersion) {
+            newVersion = newVersion.split('v')[1];
+        }
+        package.version = newVersion;
+        fs.writeFileSync('./apps/desktop-timer/src/package.json', JSON.stringify(package, null, 2));
     
-        // let updated = require('../apps/desktop-timer/src/package.json');
-        // console.log('Version updated', currentVersion, '=>', updated.version);
+        let updated = require('../apps/desktop-timer/src/package.json');
+        console.log('Version updated to version => ', updated.version);
         });
     }
 }
