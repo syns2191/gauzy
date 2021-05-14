@@ -31,12 +31,12 @@ module.exports.desktoptimer = () => {
         let package = require('../apps/desktop-timer/src/package.json');
         let currentVersion = package.version;
     
-        exec('git tag', (error, stdout) => {
+        exec('git fetch --tags && git tag', (error, stdout) => {
         if (error) {
             console.error(`exec error: ${error}`);
             return;
         }
-        console.log(stdout)
+        console.log('tags ->', stdout)
     
         // let newVersion = stdout.trim();
         // console.log('last tag', newVersion);
