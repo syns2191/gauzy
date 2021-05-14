@@ -31,7 +31,7 @@ module.exports.desktoptimer = () => {
         let package = require('../apps/desktop-timer/src/package.json');
         let currentVersion = package.version;
     
-        exec('git config --get remote.origin.url', (error, stdout) => {
+        exec('git tag', (error, stdout) => {
         if (error) {
             console.error(`exec error: ${error}`);
             return;
